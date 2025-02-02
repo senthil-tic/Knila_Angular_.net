@@ -1,0 +1,11 @@
+<div *ngFor="let toast of toastService.toasts" 
+     class="toast-container position-fixed top-0 end-0 p-3" 
+     style="z-index: 1200;" 
+     role="alert">
+    <div class="toast show {{ toast.classname }} d-flex align-items-center justify-content-between">
+        <div class="toast-body">
+            <span>{{ toast.textOrTpl }}</span>
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" (click)="toastService.remove(toast)"></button>
+    </div>
+</div>

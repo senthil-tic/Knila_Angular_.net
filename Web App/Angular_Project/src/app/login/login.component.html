@@ -1,0 +1,30 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100" style="min-height: 40rem !important;">
+    <div class="card p-4 shadow-lg rounded" style="max-width: 400px; width: 100%;">
+      <h3 class="text-center mb-3">Login</h3>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email">
+          <small class="text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            * Please enter a valid email.
+          </small>
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+          <small class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            * Password must be at least 6 characters long.
+          </small>
+        </div>
+  
+        <p class="text-danger" *ngIf="loginError">Invalid email or password</p>
+  
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+      </form>
+    </div>
+  </div>
+
+ 
+  

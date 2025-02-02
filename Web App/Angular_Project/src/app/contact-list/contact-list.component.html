@@ -1,0 +1,181 @@
+<div class="row"  style="min-height: 33rem !important;">
+    <div class="col-lg-12">
+      <div class="card">
+        
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="table-responsive table-hover">
+              <p-table
+                [rowHover]="true"
+                [value]="contactData"
+                [tableStyle]="{ 'min-width': '10rem !important' }"
+                editMode="row"
+                #dt1
+                class="table-gridjs"
+                dataKey="id"
+                [rows]="7"
+                [showCurrentPageReport]="true"
+                [paginator]="true"
+                currentPageReportTemplate="{currentPage} of {totalPages} pages ( {totalRecords} Items )"
+                
+              >
+                <ng-template pTemplate="caption">
+                  <div class="container-fluid p-0 m-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6">
+                            <div class="text-start">
+                                <h1 class="m-0">
+                                    Contacts
+                                  </h1>
+                            </div>
+                          </div>
+                      <div class="col-lg-6">
+                        <div class="text-end create" >
+                            <button (click)="detailsModel(detailsModal)" class="btn btn-outline-primary">
+                                <i class="ri-add-line align-bottom me-1" ngbTooltip="Add"></i> Create Deal
+                              </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Sl. No</th>
+                    <th  pSortableColumn="firstName" >First Name</th>
+                    <th pSortableColumn="lastName" >Last Name</th>
+                    <th pSortableColumn="address">Address</th>
+                    <th pSortableColumn="phone">Phone</th>
+                    <th pSortableColumn="email">Email</th>
+                    <th pSortableColumn="city">City</th>
+                    <th pSortableColumn="state">State</th>
+                    <th pSortableColumn="country">Country</th>
+                    <th pSortableColumn="postalCode">PostalCode</th>
+                    <th>Actions</th>
+                  </tr>
+                </ng-template>
+                <ng-template
+                pTemplate="body"
+                  let-contact
+                  let-rowIndex="rowIndex"
+                >
+                  <tr *ngIf="contactData.length > 0">
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ contact.firstName }}</td>
+                    <td>{{ contact.lastName }}</td>
+                    <td>{{ contact.address }}</td>
+                    <td>{{ contact.phoneNumber }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.city }}</td>
+                    <td>{{ contact.state }}</td>
+                    <td>{{ contact.country }}</td>
+                    <td>{{ contact.postalCode }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                          <button class="btn btn-outline-warning" (click)="openEditContactModal(EditcontactModel, contact)">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-outline-danger" (click)="deleteContact(deleteContactModel, contact)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                  </tr>
+
+                  
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td class="text-center" class="text-center" colspan="12">
+                        No records to display.
+                      </td>
+                    </tr>
+                  </ng-template>
+               
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <ng-template #detailsModal let-modal>
+    <div class="modal-content border-0">
+      <div class="modal-header p-3">
+        <h4 class="card-title mb-0">Create Contact Details</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        ></button>
+      </div>
+  
+      <div class="modal-body">
+        <app-add-contact
+          (modelResponse)="modelResponse($event)"
+         
+        ></app-add-contact>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #EditcontactModel let-modal>
+    <div class="modal-content border-0">
+      <div class="modal-header p-3">
+        <h4 class="card-title mb-0">Edit Contact Details</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        ></button>
+      </div>
+  
+      <div class="modal-body">
+        <app-edit-contact
+          (modelResponse)="EditmodelResponse($event)"
+          [formDetails]="formDetails"
+        ></app-edit-contact>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteContactModel let-modal>
+    <div class="modal-content">
+    
+      <div class="modal-body">
+        <div class="mt-2 text-center">
+          <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+            <h4>Are you sure you want to delete ?</h4>
+          </div>
+        </div>
+        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+          <button
+            class="btn btn-light"
+            data-bs-dismiss="modal"
+            id="deleteRecord-close"
+            (click)="modal.close('Close click')"
+          >
+            <i class="ri-close-line me-1 align-middle"></i> Close
+          </button>
+          <button
+            type="button"
+            class="btn w-sm btn-danger"
+            id="delete-product"
+            (click)="deleteOpportunity()"
+            (click)="modal.close('Close click')"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+ 
